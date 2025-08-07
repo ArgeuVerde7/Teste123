@@ -4,9 +4,25 @@
   "description": "Exemplo de projeto JS para testar a conexão com SonarQube.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Nenhum teste especificado\" && exit 1"
+    "test": "jest --coverage --ci --json --outputFile=./test-results.json --testLocationInResults --reporters=default --reporters=jest-junit"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-junit": "^16.0.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": ["lcov", "text"],
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!**/node_modules/**"
+    ],
+    "reporters": [
+      "default",
+      ["jest-junit", { "outputDirectory": "./", "outputName": "junit.xml" }]
+    ]
+  }
 }
