@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest # O ambiente onde o job será executado
 
     steps:
-      - name: Checkout do Código
+      - name: Checkout Código
         uses: actions/checkout@v3
         with:
           # Para a análise de Pull Request, é crucial obter o histórico completo do Git.
