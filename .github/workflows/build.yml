@@ -1,32 +1,37 @@
-name: SonarQube Analysis
+name: Análise SonarQube
 
 on:
   push:
     branches:
-      - main
+      - main # Dispara o workflow quando há um push na branch 'main'
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened] # Dispara para PRs abertos, sincronizados ou reabertos
 
 jobs:
   build:
-    name: Build and analyze
-    runs-on: ubuntu-latest
+    name: Build e Análise
+    runs-on: ubuntu-latest # O ambiente onde o job será executado
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout do Código
+        uses: actions/checkout@v3
         with:
-          # Para a análise de Pull Request, é importante obter o histórico completo
+          # Para a análise de Pull Request, é crucial obter o histórico completo do Git.
+          # fetch-depth: 0 garante que todo o histórico seja buscado.
           fetch-depth: 0
 
-      - name: Set up Node.js
+      - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '18' # Use a versão do Node.js que seu projeto requer
 
-      - name: Install dependencies
-        run: npm install
+      - name: Instalar Dependências
+        run: npm install # Instala as dependências do seu projeto (definidas em package.json)
 
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
+      - name: Executar Análise SonarQube
+        uses: sonarsource/sonarqube-scan-action@master # Ação oficial do SonarSource para escanear
         env:
+          # Variáveis de ambiente necessárias para o scanner do SonarQube.
+          # Elas são puxadas das Secrets configuradas no GitHub.
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
