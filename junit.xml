@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="3" failures="1" errors="0" time="0.005">
+  <testsuite name="calculateDiscountedPrice" errors="0" failures="1" skipped="0" timestamp="2025-08-07T20:00:00Z" time="0.003" tests="2">
+    <testcase classname="calculateDiscountedPrice" name="deve calcular o desconto corretamente para um valor válido" time="0.001">
+    </testcase>
+    <testcase classname="calculateDiscountedPrice" name="deve retornar o preço original se a porcentagem de desconto for inválida" time="0.001">
+      <failure message="expected 100 to be 200">
+        <![CDATA[
+        Error: expected 100 to be 200
+            at Object.<anonymous> (/path/to/your/project/index.test.js:10:18)
+            at Promise.then.completed (/path/to/your/project/node_modules/jest-circus/build/index.js:264:28)
+            at new Promise (<anonymous>)
+            at callAsyncCircusFn (/path/to/your/project/node_modules/jest-circus/build/index.js:218:10)
+            at _callCircusTest (/path/to/your/project/node_modules/jest-circus/build/index.js:250:40)
+            at processTicksAndRejections (node:internal/process/task_queues:95:5)
+        ]]>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="greeting functions" errors="0" failures="0" skipped="0" timestamp="2025-08-07T20:00:00Z" time="0.002" tests="1">
+    <testcase classname="greeting functions" name="deve saudar o usuário corretamente" time="0.002">
+    </testcase>
+  </testsuite>
+</testsuites>
