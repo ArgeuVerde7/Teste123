@@ -13,7 +13,6 @@ function formatCurrency(value) {
     currency: 'BRL',
   }).format(value);
 }
-
 /**
  * Capitaliza a primeira letra de uma string.
  * @param {string} str - A string a ser capitalizada.
@@ -31,7 +30,6 @@ function capitalizeFirstLetter(str) {
   }
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
 // Exporta as funções para que possam ser usadas em outros arquivos
 module.exports = {
   formatCurrency,
