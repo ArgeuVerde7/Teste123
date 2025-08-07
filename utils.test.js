@@ -1,32 +1,38 @@
 // Importa as funções do seu arquivo utils.js
 const { formatCurrency, capitalizeFirstLetter } = require('./utils');
 
+// Função auxiliar para normalizar espaços em strings formatadas
+// Isso resolve o problema de "espaço sem quebra" (\u00A0) vs. espaço normal
+function normalizeSpace(str) {
+  return str.replace(/\u00A0/g, ' ');
+}
+
 // --- Testes para a função formatCurrency ---
 describe('formatCurrency', () => {
   // Deve formatar um número positivo corretamente
   test('deve formatar um número positivo para o formato BRL', () => {
-    expect(formatCurrency(1234.56)).toBe('R$ 1.234,56');
+    expect(normalizeSpace(formatCurrency(1234.56))).toBe('R$ 1.234,56');
   });
 
   // Deve formatar um número com casas decimais zero
   test('deve formatar um número com casas decimais zero', () => {
-    expect(formatCurrency(100)).toBe('R$ 100,00');
+    expect(normalizeSpace(formatCurrency(100))).toBe('R$ 100,00');
   });
 
   // Deve formatar zero
   test('deve formatar zero corretamente', () => {
-    expect(formatCurrency(0)).toBe('R$ 0,00');
+    expect(normalizeSpace(formatCurrency(0))).toBe('R$ 0,00');
   });
 
   // Deve formatar um número negativo (o Intl.NumberFormat lida com o sinal)
   test('deve formatar um número negativo corretamente', () => {
-    expect(formatCurrency(-50.25)).toBe('-R$ 50,25');
+    expect(normalizeSpace(formatCurrency(-50.25))).toBe('-R$ 50,25');
   });
 
   // Deve retornar "R$ 0,00" e logar um erro para entrada não numérica
   test('deve retornar "R$ 0,00" e logar um erro para entrada não numérica', () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    expect(formatCurrency('abc')).toBe('R$ 0,00');
+    expect(normalizeSpace(formatCurrency('abc'))).toBe('R$ 0,00');
     expect(consoleSpy).toHaveBeenCalledWith("Erro: O valor fornecido não é um número.");
     consoleSpy.mockRestore(); // Restaura o console.error original
   });
@@ -34,14 +40,14 @@ describe('formatCurrency', () => {
   // Deve retornar "R$ 0,00" e logar um erro para NaN
   test('deve retornar "R$ 0,00" e logar um erro para NaN', () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    expect(formatCurrency(NaN)).toBe('R$ 0,00');
+    expect(normalizeSpace(formatCurrency(NaN))).toBe('R$ 0,00');
     expect(consoleSpy).toHaveBeenCalledWith("Erro: O valor fornecido não é um número.");
     consoleSpy.mockRestore();
   });
 
   // Deve formatar um número grande
   test('deve formatar um número grande corretamente', () => {
-    expect(formatCurrency(1234567.89)).toBe('R$ 1.234.567,89');
+    expect(normalizeSpace(formatCurrency(1234567.89))).toBe('R$ 1.234.567,89');
   });
 });
 
