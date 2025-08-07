@@ -5,8 +5,7 @@
  * @returns {number} O preço final após o desconto.
  */
 function calculateDiscountedPrice(price, discountPercentage) {
-  // Exemplo de um ponto onde o SonarQube pode sugerir melhorias:
-  // Não há validação para garantir que discountPercentage esteja entre 0 e 100.
+  // Validação para garantir que discountPercentage esteja entre 0 e 100.
   if (discountPercentage < 0 || discountPercentage > 100) {
     console.warn("Porcentagem de desconto inválida. Deve estar entre 0 e 100.");
     return price; // Retorna o preço original se a porcentagem for inválida
@@ -32,3 +31,6 @@ function greetUser(name) {
 }
 
 greetUser("Mundo");
+
+// Exporta a função para que ela possa ser testada
+module.exports = { calculateDiscountedPrice };
