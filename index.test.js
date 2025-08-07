@@ -1,5 +1,5 @@
-// Importa a função que você quer testar do seu arquivo index.js
-const { calculateDiscountedPrice } = require('./index');
+// Importa as funções que você quer testar do seu arquivo index.js
+const { calculateDiscountedPrice, greetUser } = require('./index');
 describe('calculateDiscountedPrice', () => {
   // Teste para verificar se o desconto é calculado corretamente
   test('should calculate the discount correctly for a valid value', () => {
@@ -34,5 +34,25 @@ describe('calculateDiscountedPrice', () => {
     const discount = 100;
     const expectedFinalPrice = 0;
     expect(calculateDiscountedPrice(price, discount)).toBe(expectedFinalPrice);
+  });
+});
+describe('greetUser', () => {
+  // Teste para verificar se greetUser chama console.log com a mensagem correta
+  test('deve chamar console.log com a mensagem de saudação correta', () => {
+    // Espiona a função console.log para verificar se ela foi chamada
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    const userName = 'Alice';
+    greetUser(userName);
+    // Verifica se console.log foi chamado com a string esperada
+    expect(consoleSpy).toHaveBeenCalledWith(`Olá, ${userName}!`);
+    // Restaura a função original de console.log
+    consoleSpy.mockRestore();
+  });
+  // Teste adicional: deve lidar com nomes vazios
+  test('deve chamar console.log com uma mensagem de saudação para nome vazio', () => {
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    greetUser('');
+    expect(consoleSpy).toHaveBeenCalledWith('Olá, !');
+    consoleSpy.mockRestore();
   });
 });
