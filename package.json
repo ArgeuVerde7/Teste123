@@ -1,10 +1,10 @@
 {
   "name": "sonarqube-js-example",
   "version": "1.0.0",
-  "description": "Exemplo de projeto JS para SonarQube",
+  "description": "Exemplo de projeto JS para testar a conexão com SonarQube.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Nenhum teste especificado\" && exit 1"
   },
   "keywords": [],
   "author": "",
