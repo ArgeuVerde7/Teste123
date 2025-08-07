@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="3" failures="1" errors="0" time="0.005">
-  <testsuite name="calculateDiscountedPrice" errors="0" failures="1" skipped="0" timestamp="2025-08-07T20:00:00Z" time="0.003" tests="2">
-    <testcase classname="calculateDiscountedPrice" name="deve calcular o desconto corretamente para um valor válido" time="0.001">
-    </testcase>
-    <testcase classname="calculateDiscountedPrice" name="deve retornar o preço original se a porcentagem de desconto for inválida" time="0.001">
+<testExecutions version="1">
+  <!-- Representa um arquivo de teste. O 'path' deve ser relativo à raiz do projeto. -->
+  <file path="path/to/your/project/index.test.js">
+    <!-- Teste que passou -->
+    <testCase name="deve calcular o desconto corretamente para um valor válido" duration="1" />
+    <!-- Teste que falhou -->
+    <testCase name="deve retornar o preço original se a porcentagem de desconto for inválida" duration="1">
       <failure message="expected 100 to be 200">
         <![CDATA[
         Error: expected 100 to be 200
@@ -15,10 +17,12 @@
             at processTicksAndRejections (node:internal/process/task_queues:95:5)
         ]]>
       </failure>
-    </testcase>
-  </testsuite>
-  <testsuite name="greeting functions" errors="0" failures="0" skipped="0" timestamp="2025-08-07T20:00:00Z" time="0.002" tests="1">
-    <testcase classname="greeting functions" name="deve saudar o usuário corretamente" time="0.002">
-    </testcase>
-  </testsuite>
-</testsuites>
+    </testCase>
+  </file>
+
+  <!-- Outro arquivo de teste, se houver -->
+  <file path="path/to/your/project/greeting.test.js">
+    <!-- Teste que passou -->
+    <testCase name="deve saudar o usuário corretamente" duration="2" />
+  </file>
+</testExecutions>
