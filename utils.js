@@ -20,15 +20,17 @@ function formatCurrency(value) {
  * @returns {string} A string com a primeira letra em maiúscula.
  */
 function capitalizeFirstLetter(str) {
-  if (typeof str !== 'string' || str.length === 0) {
+  // Primeiro, verifica se a entrada é uma string.
+  // Se não for, retorna uma string vazia imediatamente para evitar erros.
+  if (typeof str !== 'string') {
+    return '';
+  }
+  // Em seguida, verifica se a string está vazia.
+  if (str.length === 0) {
     return '';
   }
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
-// Exemplo de uso (opcional, pode ser removido em um ambiente de produção)
-// console.log(formatCurrency(1234.56));
-// console.log(capitalizeFirstLetter("hello world"));
 
 // Exporta as funções para que possam ser usadas em outros arquivos
 module.exports = {
