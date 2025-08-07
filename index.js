@@ -1,13 +1,34 @@
-function calculateDiscount(price, discount) {
-  // O SonarQube pode identificar que 'discount' não é validado
-  if (discount > 100) {
-    return price; // Exemplo de um bug potencial
+/**
+ * Calcula o preço com desconto.
+ * @param {number} price - O preço original do item.
+ * @param {number} discountPercentage - A porcentagem de desconto a ser aplicada (0-100).
+ * @returns {number} O preço final após o desconto.
+ */
+function calculateDiscountedPrice(price, discountPercentage) {
+  // Exemplo de um ponto onde o SonarQube pode sugerir melhorias:
+  // Não há validação para garantir que discountPercentage esteja entre 0 e 100.
+  if (discountPercentage < 0 || discountPercentage > 100) {
+    console.warn("Porcentagem de desconto inválida. Deve estar entre 0 e 100.");
+    return price; // Retorna o preço original se a porcentagem for inválida
   }
-  return price - (price * discount) / 100;
+
+  const discountedAmount = (price * discountPercentage) / 100;
+  return price - discountedAmount;
 }
 
-const finalPrice = calculateDiscount(100, 20);
-console.log(`O preço final é: ${finalPrice}`);
+const originalProductPrice = 200;
+const discountApplied = 15; // 15% de desconto
 
-// Variável não utilizada, SonarQube pode identificar isso
-const unusedVariable = "Hello World";
+const finalPrice = calculateDiscountedPrice(originalProductPrice, discountApplied);
+console.log(`O preço original era: R$${originalProductPrice}`);
+console.log(`Com ${discountApplied}% de desconto, o preço final é: R$${finalPrice}`);
+
+// Esta variável não é usada em nenhum lugar, o SonarQube deve detectá-la como um code smell.
+const greetingMessage = "Bem-vindo ao nosso exemplo de SonarQube!";
+
+// Função de exemplo adicional
+function greetUser(name) {
+  console.log(`Olá, ${name}!`);
+}
+
+greetUser("Mundo");
