@@ -23,6 +23,9 @@
     "reporters": [
       "default",
       ["jest-junit", { "outputDirectory": "./", "outputName": "junit.xml" }]
+    ],
+    "testMatch": [
+      "**/?(*.)+(spec|test).[tj]s?(x)"
     ]
   }
 }
