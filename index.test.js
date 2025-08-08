@@ -1,5 +1,3 @@
-// Importa a função que você quer testar do seu arquivo index.js
-const { calculateDiscountedPrice } = require('./index');
 // Importa as funções que você quer testar do seu arquivo index.js
 const { calculateDiscountedPrice, greetUser } = require('./index');
 describe('calculateDiscountedPrice', () => {
