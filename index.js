@@ -20,7 +20,6 @@ console.log(`O preço original era: R$${originalProductPrice}`);
 console.log(`Com ${discountApplied}% de desconto, o preço final é: R$${finalPrice}`);
 // Esta variável não é usada em nenhum lugar, o SonarQube deve detectá-la como um code smell.
 const greetingMessage = "Bem-vindo ao nosso exemplo de SonarQube!";
-// Função de exemplo adicional
 /**
  * Saúda um usuário com uma mensagem no console.
  * @param {string} name - O nome do usuário.
@@ -29,7 +28,5 @@ function greetUser(name) {
   console.log(`Olá, ${name}!`);
 }
 greetUser("Mundo");
-// Exporta a função para que ela possa ser testada
-module.exports = { calculateDiscountedPrice };
 // Exporta as funções para que elas possam ser testadas
 module.exports = { calculateDiscountedPrice, greetUser };
