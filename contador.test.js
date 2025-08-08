@@ -2,20 +2,24 @@
  * @jest-environment jsdom
  */
 
-// Importa o arquivo JavaScript que contém a funcionalidade do contador
-// Nota: O `require` aqui está importando o módulo como se fosse um Node.js
-// Mas vamos simular o ambiente de navegador para testá-lo.
-require('./contador.js');
+// Importa a função de inicialização do contador
+const { initContador } = require('./contador.js');
+
 describe('Contador JavaScript', () => {
     // Antes de cada teste, configuramos um DOM básico em memória
     // e ativamos os timers simulados do Jest.
     beforeEach(() => {
-        // Mock do DOM: Cria uma estrutura HTML básica que o JS espera
+        // Cria uma estrutura HTML básica que o JS espera no JSDOM
         document.body.innerHTML = `
             <div id="counter">0</div>
             <p id="status-message">Contando até 100...</p>
             <button id="startButton">Iniciar Contagem</button>
         `;
+
+        // **Chama a função de inicialização do contador explicitamente**
+        // Isso garante que os event listeners e o estado inicial sejam configurados
+        // no ambiente de teste, exatamente como fariam no navegador.
+        initContador();
 
         // Ativa os timers simulados do Jest
         // Isso permite que a gente controle o tempo de setInterval/setTimeout
@@ -24,12 +28,13 @@ describe('Contador JavaScript', () => {
 
     // Após cada teste, restaura os timers reais para evitar interferências
     afterEach(() => {
-        jest.runOnlyPendingTimers(); // Garante que todos os timers pendentes sejam executados antes de resetar
-        jest.useRealTimers(); // Restaura os timers reais
+        // Garante que todos os timers pendentes sejam executados antes de resetar
+        jest.runOnlyPendingTimers();
+        // Restaura os timers reais
+        jest.useRealTimers();
     });
 
     test('o contador deve começar em 0 e a mensagem inicial deve estar correta', () => {
-        // Verifica o estado inicial dos elementos após o DOMContentLoaded (simulado)
         const counterElement = document.getElementById('counter');
         const statusMessageElement = document.getElementById('status-message');
         const startButton = document.getElementById('startButton');
@@ -56,7 +61,7 @@ describe('Contador JavaScript', () => {
         expect(counterElement.textContent).toBe('1');
 
         // Avança o tempo para uma contagem parcial (ex: até 50)
-        jest.advanceTimersByTime(50 * 49); // 49 incrementos de 50ms
+        jest.advanceTimersByTime(50 * 49); // 49 incrementos de 50ms (total de 50)
         expect(counterElement.textContent).toBe('50');
     });
 
@@ -100,4 +105,3 @@ describe('Contador JavaScript', () => {
         expect(counterElement.textContent).toBe('100');
     });
 });
-
