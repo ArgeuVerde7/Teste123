@@ -1,7 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-
 // Importa o arquivo JavaScript que contém a funcionalidade do contador
 // Nota: O `require` aqui está importando o módulo como se fosse um Node.js
 // Mas vamos simular o ambiente de navegador para testá-lo.
@@ -17,18 +16,15 @@ describe('Contador JavaScript', () => {
             <p id="status-message">Contando até 100...</p>
             <button id="startButton">Iniciar Contagem</button>
         `;
-
         // Ativa os timers simulados do Jest
         // Isso permite que a gente controle o tempo de setInterval/setTimeout
         jest.useFakeTimers();
     });
-
     // Após cada teste, restaura os timers reais para evitar interferências
     afterEach(() => {
         jest.runOnlyPendingTimers(); // Garante que todos os timers pendentes sejam executados antes de resetar
         jest.useRealTimers(); // Restaura os timers reais
     });
-
     test('o contador deve começar em 0 e a mensagem inicial deve estar correta', () => {
         // Verifica o estado inicial dos elementos após o DOMContentLoaded (simulado)
         const counterElement = document.getElementById('counter');
@@ -101,3 +97,4 @@ describe('Contador JavaScript', () => {
         expect(counterElement.textContent).toBe('100');
     });
 });
+
