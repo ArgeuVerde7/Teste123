@@ -1,11 +1,35 @@
-function calculateDiscount(price, discount) {
-  // A cobertura de código vai mostrar que essa linha é executada
-  // e o novo 'if' vai garantir que o 'branch' para desconto negativo seja coberto
-  if (discount < 0 || discount > 100) {
-    return price;
+/**
+ * Calcula o preço com desconto.
+ * @param {number} price - O preço original do item.
+ * @param {number} discountPercentage - A porcentagem de desconto a ser aplicada (0-100).
+ * @returns {number} O preço final após o desconto.
+ */
+function calculateDiscountedPrice(price, discountPercentage) {
+  // Validação para garantir que discountPercentage esteja entre 0 e 100.
+  if (discountPercentage < 0 || discountPercentage > 100) {
+    console.warn("Porcentagem de desconto inválida. Deve estar entre 0 e 100.");
+    return price; // Retorna o preço original se a porcentagem for inválida
   }
-  return price - (price * discount) / 100;
+  const discountedAmount = (price * discountPercentage) / 100;
+  return price - discountedAmount;
 }
-const finalPrice = calculateDiscount(100, 20);
-console.log(`O preço final é: ${finalPrice}`);
-const unusedVariable = "Hello World";
+const originalProductPrice = 200;
+const discountApplied = 15; // 15% de desconto
+const finalPrice = calculateDiscountedPrice(originalProductPrice, discountApplied);
+console.log(`O preço original era: R$${originalProductPrice}`);
+console.log(`Com ${discountApplied}% de desconto, o preço final é: R$${finalPrice}`);
+// Esta variável não é usada em nenhum lugar, o SonarQube deve detectá-la como um code smell.
+const greetingMessage = "Bem-vindo ao nosso exemplo de SonarQube!";
+// Função de exemplo adicional
+/**
+ * Saúda um usuário com uma mensagem no console.
+ * @param {string} name - O nome do usuário.
+ */
+function greetUser(name) {
+  console.log(`Olá, ${name}!`);
+}
+greetUser("Mundo");
+// Exporta a função para que ela possa ser testada
+module.exports = { calculateDiscountedPrice };
+// Exporta as funções para que elas possam ser testadas
+module.exports = { calculateDiscountedPrice, greetUser };
