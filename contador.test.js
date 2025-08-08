@@ -6,7 +6,6 @@
 // Nota: O `require` aqui está importando o módulo como se fosse um Node.js
 // Mas vamos simular o ambiente de navegador para testá-lo.
 require('./contador.js');
-
 describe('Contador JavaScript', () => {
     // Antes de cada teste, configuramos um DOM básico em memória
     // e ativamos os timers simulados do Jest.
@@ -101,3 +100,4 @@ describe('Contador JavaScript', () => {
         expect(counterElement.textContent).toBe('100');
     });
 });
+
