@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 // Importa o arquivo JavaScript que contém a funcionalidade do contador
 // Nota: O `require` aqui está importando o módulo como se fosse um Node.js
 // Mas vamos simular o ambiente de navegador para testá-lo.
