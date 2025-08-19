@@ -93,4 +93,3 @@ describe('calculateShippingCost', () => {
     expect(calculateShippingCost(weight, distance)).toBe(expectedCost);
   });
 });
-
