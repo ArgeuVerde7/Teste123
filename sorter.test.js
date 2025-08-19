@@ -55,22 +55,22 @@ describe('sorter.js', () => {
     expect(document.getElementById('fileSearch')).not.toBeNull();
   });
 
-  // Cenário de teste 2: Testar a funcionalidade de ordenação
+    // Cenário de teste 2: Testar a funcionalidade de ordenação
   test('should sort rows correctly when a sortable column is clicked', () => {
     const branchesHeader = document.querySelector('th[data-col="branches"]');
     branchesHeader.click();
 
     const rows = document.querySelectorAll('tbody tr');
-    // A ordem deve ser de 'file2.js' (50%) para 'file1.js' (90%)
-    expect(rows[0].querySelector('td[data-value="50"]')).not.toBeNull();
-    expect(rows[1].querySelector('td[data-value="90"]')).not.toBeNull();
+    // A ordem deve ser de 'file1.js' (90%) para 'file2.js' (50%) na primeira ordenação
+    expect(rows[0].querySelector('td[data-value="90"]')).not.toBeNull();
+    expect(rows[1].querySelector('td[data-value="50"]')).not.toBeNull();
 
     // Clicar novamente para testar a ordem decrescente
     branchesHeader.click();
     const sortedRowsDesc = document.querySelectorAll('tbody tr');
-    // A nova ordem deve ser 'file1.js' (90%) para 'file2.js' (50%)
-    expect(sortedRowsDesc[0].querySelector('td[data-value="90"]')).not.toBeNull();
-    expect(sortedRowsDesc[1].querySelector('td[data-value="50"]')).not.toBeNull();
+    // A nova ordem deve ser 'file2.js' (50%) para 'file1.js' (90%)
+    expect(sortedRowsDesc[0].querySelector('td[data-value="50"]')).not.toBeNull();
+    expect(sortedRowsDescDesc[1].querySelector('td[data-value="90"]')).not.toBeNull();
   });
 
   // Cenário de teste 3: Testar a funcionalidade de busca
@@ -86,3 +86,4 @@ describe('sorter.js', () => {
     expect(rows[1].style.display).toBe('none'); // file2.js should be hidden
   });
 });
+
