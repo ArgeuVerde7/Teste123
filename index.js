@@ -19,13 +19,11 @@ const finalPrice = calculateDiscountedPrice(originalProductPrice, discountApplie
 console.log(`O preço original era: R$${originalProductPrice}`);
 console.log(`Com ${discountApplied}% de desconto, o preço final é: R$${finalPrice}`);
 // Esta variável não é usada em nenhum lugar, o SonarQube deve detectá-la como um code smell.
-/**
 const greetingMessage = "Bem-vindo ao nosso exemplo de SonarQube!";
 function greetUser(name) {
   console.log(`Olá, ${name}!`);
 }
 greetUser("Mundo");
-*/
 /**
  * Calcula o custo de envio.
  * @param {number} weight - O peso do item em quilogramas.
@@ -47,4 +45,5 @@ console.log(`O custo de envio é: R$${shippingCost}`);
 
 // Exporta as funções para que elas possam ser testadas
 module.exports = { calculateDiscountedPrice, greetUser, calculateShippingCost };
+
 
