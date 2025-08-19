@@ -24,5 +24,24 @@ function greetUser(name) {
   console.log(`Olá, ${name}!`);
 }
 greetUser("Mundo");
+/**
+ * Calcula o custo de envio.
+ * @param {number} weight - O peso do item em quilogramas.
+ * @param {number} distance - A distância de envio em quilômetros.
+ * @returns {number} O custo de envio calculado.
+ */
+function calculateShippingCost(weight, distance) {
+  const baseRate = 5; // Taxa base
+  const ratePerKg = 0.5; // Custo por kg
+  const ratePerKm = 0.1; // Custo por km
+  const shippingCost = baseRate + (weight * ratePerKg) + (distance * ratePerKm);
+  return shippingCost;
+}
+
+const productWeight = 2.5; // 2.5 kg
+const shippingDistance = 50; // 50 km
+const shippingCost = calculateShippingCost(productWeight, shippingDistance);
+console.log(`O custo de envio é: R$${shippingCost}`);
+
 // Exporta as funções para que elas possam ser testadas
-module.exports = { calculateDiscountedPrice, greetUser };
+module.exports = { calculateDiscountedPrice, greetUser, calculateShippingCost };
