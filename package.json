@@ -14,21 +14,29 @@
     "jest-junit": "^16.0.0",
     "jest-environment-jsdom": "^29.7.0"
   },
-  "jest": 
-  {
+ "jest": {
     "collectCoverage": true,
-    "coverageReporters": ["lcov", "text"],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
     "collectCoverageFrom": [
       "**/*.js",
       "!**/node_modules/**"
     ],
     "reporters": [
       "default",
-      ["jest-junit", { "outputDirectory": "./", "outputName": "junit.xml" }]
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "./",
+          "outputName": "junit.xml"
+        }
+      ]
     ],
     "testMatch": [
       "**/?(*.)+(spec|test).[tj]s?(x)"
-    ]
+    ],
     "testEnvironment": "jsdom"
   }
 }
