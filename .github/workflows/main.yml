@@ -10,7 +10,7 @@ jobs:
     name: Build e Análise
     runs-on: ubuntu-latest # O ambiente onde o job será executado
     steps:
-      - name: Checkout Código
+      - name: Verificando Código
         uses: actions/checkout@v3
         with:
           # Para a análise de Pull Request, é crucial obter o histórico completo do Git.
@@ -23,7 +23,7 @@ jobs:
          # cache: 'npm' # Adiciona cache para dependências npm para builds mais rápidos
       - name: Instalar Dependências
         run: npm install # Instala as dependências do seu projeto (definidas em package.json)
-      - name: Rodar Testes e Gerar Relatórios
+      - name: Rodar Testes/Gerar Relatórios
         # Esta etapa executa seus testes e gera os arquivos de relatório (lcov.info e junit.xml)
         run: npm test
       - name: Analisando SonarQube
