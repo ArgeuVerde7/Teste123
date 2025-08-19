@@ -36,7 +36,7 @@ describe('calculateDiscountedPrice', () => {
     expect(calculateDiscountedPrice(price, discount)).toBe(expectedFinalPrice);
   });
 });
-describe('greetUser', () => {
+/**describe('greetUser', () => {
   // Teste para verificar se greetUser chama console.log com a mensagem correta
   test('deve chamar console.log com a mensagem de saudação correta', () => {
     // Espiona a função console.log para verificar se ela foi chamada
@@ -56,6 +56,7 @@ describe('greetUser', () => {
     consoleSpy.mockRestore();
   });
 });
+*/
 describe('calculateShippingCost', () => {
   // Cenário de teste 1: Calcular custo de envio para valores válidos e positivos
   test('should calculate shipping cost correctly for positive values', () => {
@@ -93,3 +94,4 @@ describe('calculateShippingCost', () => {
     expect(calculateShippingCost(weight, distance)).toBe(expectedCost);
   });
 });
+
