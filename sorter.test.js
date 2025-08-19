@@ -1,15 +1,11 @@
 // sorter.test.js
-
 /**
  * @jest-environment jsdom
  */
-
 // Importar o código sorter.js
 // O `require` executará a função anônima imediatamente após o listener de 'load'
 const addSorting = require('./sorter.js');
-
 describe('sorter.js', () => {
-
   // Antes de cada teste, vamos configurar um ambiente de teste com um HTML básico
   beforeEach(() => {
     document.body.innerHTML = `
