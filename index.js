@@ -24,9 +24,7 @@ function greetUser(name) {
   console.log(`Olá, ${name}!`);
 }
 greetUser("Mundo");
-// Exporta as funções para que elas possam ser testadas
-module.exports = { calculateDiscountedPrice, greetUser };
-// Calcular custo do envio com desconto
+/**
  * Calcula o custo de envio.
  * @param {number} weight - O peso do item em quilogramas.
  * @param {number} distance - A distância de envio em quilômetros.
@@ -45,4 +43,5 @@ const shippingDistance = 50; // 50 km
 const shippingCost = calculateShippingCost(productWeight, shippingDistance);
 console.log(`O custo de envio é: R$${shippingCost}`);
 
+// Exporta as funções para que elas possam ser testadas
 module.exports = { calculateDiscountedPrice, greetUser, calculateShippingCost };
