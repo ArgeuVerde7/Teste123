@@ -1,5 +1,5 @@
 // Importa as funções que você quer testar do seu arquivo index.js
-const { calculateDiscountedPrice, calculateShippingCost } = require('./index');
+const { calculateDiscountedPrice, greetUser, calculateShippingCost } = require('./index');
 describe('calculateDiscountedPrice', () => {
   // Teste para verificar se o desconto é calculado corretamente
   test('should calculate the discount correctly for a valid value', () => {
@@ -36,7 +36,7 @@ describe('calculateDiscountedPrice', () => {
     expect(calculateDiscountedPrice(price, discount)).toBe(expectedFinalPrice);
   });
 });
-/**describe('greetUser', () => {
+describe('greetUser', () => {
   // Teste para verificar se greetUser chama console.log com a mensagem correta
   test('deve chamar console.log com a mensagem de saudação correta', () => {
     // Espiona a função console.log para verificar se ela foi chamada
@@ -56,7 +56,6 @@ describe('calculateDiscountedPrice', () => {
     consoleSpy.mockRestore();
   });
 });
-*/
 describe('calculateShippingCost', () => {
   // Cenário de teste 1: Calcular custo de envio para valores válidos e positivos
   test('should calculate shipping cost correctly for positive values', () => {
@@ -94,3 +93,4 @@ describe('calculateShippingCost', () => {
     expect(calculateShippingCost(weight, distance)).toBe(expectedCost);
   });
 });
+
