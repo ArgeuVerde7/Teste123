@@ -1,15 +1,11 @@
 /* eslint-disable */
-
 var addSorting = (function() {
-
     'use strict';
-
     var cols,
         currentSort = {
             index: 0,
             desc: false
         };
-
     // returns the summary table element
     function getTable() {
         return document.querySelector('.coverage-summary');
@@ -26,7 +22,6 @@ var addSorting = (function() {
     function getNthColumn(n) {
         return getTableHeader().querySelectorAll('th')[n];
     }
-
     function onFilterInput() {
         const searchValue = document.getElementById('fileSearch').value;
         const rows = document.getElementsByTagName('tbody')[0].children;
@@ -57,7 +52,6 @@ var addSorting = (function() {
             row.style.display = isMatch ? '' : 'none';
         }
     }
-
     // loads the search box
     function addSearchBox() {
         var template = document.getElementById('filterTemplate');
@@ -65,7 +59,6 @@ var addSorting = (function() {
         templateClone.getElementById('fileSearch').oninput = onFilterInput;
         template.parentElement.appendChild(templateClone);
     }
-
     // loads all columns
     function loadColumns() {
         var colNodes = getTableHeader().querySelectorAll('th'),
@@ -209,5 +202,4 @@ var addSorting = (function() {
         enableUI();
     };
 })();
-
 window.addEventListener('load', addSorting);
