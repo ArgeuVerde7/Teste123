@@ -14,7 +14,8 @@
     "jest-junit": "^16.0.0",
     "jest-environment-jsdom": "^29.7.0"
   },
-  "jest": {
+  "jest": 
+  {
     "collectCoverage": true,
     "coverageReporters": ["lcov", "text"],
     "collectCoverageFrom": [
@@ -28,5 +29,6 @@
     "testMatch": [
       "**/?(*.)+(spec|test).[tj]s?(x)"
     ]
+    "testEnvironment": "jsdom"
   }
 }
