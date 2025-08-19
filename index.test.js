@@ -1,5 +1,5 @@
 // Importa as funções que você quer testar do seu arquivo index.js
-const { calculateDiscountedPrice, greetUser } = require('./index');
+const { calculateDiscountedPrice, greetUser, calculateShippingCost } = require('./index');
 describe('calculateDiscountedPrice', () => {
   // Teste para verificar se o desconto é calculado corretamente
   test('should calculate the discount correctly for a valid value', () => {
@@ -54,5 +54,42 @@ describe('greetUser', () => {
     greetUser('');
     expect(consoleSpy).toHaveBeenCalledWith('Olá, !');
     consoleSpy.mockRestore();
+  });
+});
+describe('calculateShippingCost', () => {
+  // Cenário de teste 1: Calcular custo de envio para valores válidos e positivos
+  test('should calculate shipping cost correctly for positive values', () => {
+    const weight = 2.5;
+    const distance = 50;
+    const expectedCost = 5 + (2.5 * 0.5) + (50 * 0.1);
+    expect(calculateShippingCost(weight, distance)).toBe(expectedCost);
+  });
+  // Cenário de teste 2: Retornar apenas a taxa base quando o peso e a distância são zero
+  test('should return base rate for zero weight and distance', () => {
+    const weight = 0;
+    const distance = 0;
+    const expectedCost = 5;
+    expect(calculateShippingCost(weight, distance)).toBe(expectedCost);
+  });
+  // Cenário de teste 3: Calcular custo de envio corretamente quando a distância é zero
+  test('should calculate correctly with zero distance', () => {
+    const weight = 10;
+    const distance = 0;
+    const expectedCost = 5 + (10 * 0.5);
+    expect(calculateShippingCost(weight, distance)).toBe(expectedCost);
+  });
+  // Cenário de teste 4: Calcular custo de envio corretamente quando o peso é zero
+  test('should calculate correctly with zero weight', () => {
+    const weight = 0;
+    const distance = 100;
+    const expectedCost = 5 + (100 * 0.1);
+    expect(calculateShippingCost(weight, distance)).toBe(expectedCost);
+  });
+  // Cenário de teste 5: Testar com valores decimais para peso e distância
+  test('should work with decimal values for weight and distance', () => {
+    const weight = 1.25;
+    const distance = 75.5;
+    const expectedCost = 5 + (1.25 * 0.5) + (75.5 * 0.1);
+    expect(calculateShippingCost(weight, distance)).toBe(expectedCost);
   });
 });
