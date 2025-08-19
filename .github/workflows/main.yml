@@ -32,4 +32,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   
           # Generate a token on SonarQube, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
           SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}   
-          # AS VEZES AQUI VEM COMO SECRETS E NÃO VARS
+          # AS VEZES AQUI VEM COMO SECRETS E NÃO VARS E ISSO IMPEDE A CONEXÃO SEM UM ERRO CLARO EM TELA
