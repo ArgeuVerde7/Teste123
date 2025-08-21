@@ -198,6 +198,7 @@ var addSorting = (function() {
         }
     }
     // adds sorting functionality to the UI
+    const addSorting = (function() {
     return function() {
         if (!getTable()) {
             return;
@@ -208,6 +209,11 @@ var addSorting = (function() {
         addSortIndicators();
         enableUI();
     };
-})();
+})(); // Fim do IIFE
 
-window.addEventListener('load', addSorting);
+// Exporta a função para que possa ser testada
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = addSorting;
+} else {
+    window.addEventListener('load', addSorting);
+}
