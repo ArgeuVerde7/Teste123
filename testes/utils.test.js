@@ -1,5 +1,5 @@
 // Importa as funções do seu arquivo utils.js
-const { formatCurrency, capitalizeFirstLetter } = require('./utils');
+const { formatCurrency, capitalizeFirstLetter } = require('../src/utils');
 // Função auxiliar para normalizar espaços em strings formatadas
 // Isso resolve o problema de "espaço sem quebra" (\u00A0) vs. espaço normal
 function normalizeSpace(str) {
@@ -67,3 +67,4 @@ describe('capitalizeFirstLetter', () => {
     expect(capitalizeFirstLetter(undefined)).toBe('');
   });
 });
+
