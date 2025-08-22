@@ -1,6 +1,6 @@
 // passwordValidator.test.js
 
-const validatePassword = require('../Sprint/senhaValidator.js');
+const validatePassword = require('../Sprint/senhaValidador.js');
 
 describe('validatePassword', () => {
 
@@ -60,4 +60,5 @@ describe('validatePassword', () => {
     ]);
   });
   
+
 });
