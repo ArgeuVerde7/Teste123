@@ -4,7 +4,7 @@
  */
 
 // Importar o código sorter.js
-const addSorting = require('./sorter.js');
+const addSorting = require('../src/sorter.js');
 
 describe('sorter.js', () => {
     // Definir um HTML básico para os testes
@@ -131,3 +131,4 @@ describe('sorter.js', () => {
         window.Element.prototype.attachEvent = originalAttachEvent;
     });
 });
+
