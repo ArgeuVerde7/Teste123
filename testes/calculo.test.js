@@ -1,6 +1,6 @@
 // calculo.test.js
 
-const calculator = require('./calculo.js');
+const calculator = require('.src/calculo.js');
 
 describe('Calculator', () => {
 
@@ -81,3 +81,4 @@ describe('Calculator', () => {
     });
   });
 });
+
