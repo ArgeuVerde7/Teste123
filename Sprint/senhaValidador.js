@@ -10,7 +10,8 @@ function validatePassword(password) {
   const minLength = 8;
   const hasUpperCase = /[A-Z]/.test(password);
   const hasLowerCase = /[a-z]/.test(password);
-  const hasNumber = /[0-9]/.test(password);
+  // Alteração: substituindo '[0-9]' por '\d'
+  const hasNumber = /\d/.test(password);
   const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
   // Check if the password is a string
@@ -45,3 +46,4 @@ function validatePassword(password) {
 }
 
 module.exports = validatePassword;
+
