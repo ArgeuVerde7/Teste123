@@ -1,6 +1,6 @@
-// calculator.test.js
+// calculo.test.js
 
-const calculator = require('./calculator.js');
+const calculator = require('./calculo.js');
 
 describe('Calculator', () => {
 
@@ -80,5 +80,4 @@ describe('Calculator', () => {
       expect(() => calculator.divide(10, 0)).toThrow('Cannot divide by zero.');
     });
   });
-
 });
