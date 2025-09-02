@@ -1,4 +1,4 @@
-const { somar, subtrair, multiplicar, dividir } = require('../calculadora'); // Ajuste o caminho conforme necessário
+const { somar, subtrair, multiplicar, dividir } = require('../Sprint/calculadora.js'); // Ajuste o caminho conforme necessário
 
 describe('Calculadora', () => {
 
@@ -91,5 +91,6 @@ describe('Calculadora', () => {
       expect(dividir(20, 2)).toBe(10);
     });
   });
+
 
 });
