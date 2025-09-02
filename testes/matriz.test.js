@@ -1,5 +1,5 @@
 // Importa a função a ser testada
-const create3DArray = require('./Sprint/matriz');
+const create3DArray = require('../Sprint/matriz.js');
 
 // Bloco de testes para a função create3DArray
 describe('create3DArray', () => {
