@@ -5,30 +5,37 @@
  */
 export function validarCpf(cpf: string): boolean {
   // Remove caracteres não numéricos
-  const cpfLimpo = cpf.replace(/[^\d]/g, '');
+  const cpfLimpo = cpf.replace(/[^\D]/g, '');
 
-  // Verifica se o CPF tem 11 dígitos
-  if (cpfLimpo.length !== 11) {
+  // Verifica se o CPF tem 11 dígitos e se não é uma sequência de números repetidos
+  if (cpfLimpo.length !== 11 || /^(\d)\1{10}$/.test(cpfLimpo)) {
     return false;
   }
 
-  // Verifica se todos os dígitos são iguais (ex: 111.111.111-11)
-  if (/^(\d)\1{10}$/.test(cpfLimpo)) {
+  // Lógica para validar o primeiro dígito verificador
+  let soma = 0;
+  for (let i = 0; i < 9; i++) {
+    soma += parseInt(cpfLimpo.charAt(i)) * (10 - i);
+  }
+  let resto = (soma * 10) % 11;
+  if (resto === 10) {
+    resto = 0;
+  }
+  if (resto !== parseInt(cpfLimpo.charAt(9))) {
     return false;
   }
 
-  // Lógica para validar os dois dígitos verificadores
-  for (let i = 9; i < 11; i++) {
-    let soma = 0;
-    for (let j = 0; j < i; j++) {
-      soma += parseInt(cpfLimpo.charAt(j)) * ((i + 1) - j);
-    }
-    const digitoVerificador = (soma * 10) % 11;
-    if (digitoVerificador === 10 || digitoVerificador === 11) {
-      if (0 !== parseInt(cpfLimpo.charAt(i))) return false;
-    } else {
-      if (digitoVerificador !== parseInt(cpfLimpo.charAt(i))) return false;
-    }
+  // Lógica para validar o segundo dígito verificador
+  soma = 0;
+  for (let i = 0; i < 10; i++) {
+    soma += parseInt(cpfLimpo.charAt(i)) * (11 - i);
+  }
+  resto = (soma * 10) % 11;
+  if (resto === 10) {
+    resto = 0;
+  }
+  if (resto !== parseInt(cpfLimpo.charAt(10))) {
+    return false;
   }
 
   return true;
