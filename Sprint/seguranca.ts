@@ -79,6 +79,17 @@ export function gerarSenhaSegura(
   if (numeros) requisitos.push(charsNumeros);
   if (simbolos) requisitos.push(charsSimbolos);
 
+  // Usa um gerador de números aleatórios criptograficamente seguro
+  const array = new Uint32Array(comprimento);
+  if (window.crypto && window.crypto.getRandomValues) {
+    window.crypto.getRandomValues(array);
+  } else {
+    // Fallback para ambientes sem window.crypto (inseguro)
+    for (let i = 0; i < array.length; i++) {
+      array[i] = Math.floor(Math.random() * (2**32));
+    }
+  }
+
   // Garante pelo menos um caractere de cada tipo selecionado
   for (const requisito of requisitos) {
     const indiceAleatorio = Math.floor(Math.random() * requisito.length);
@@ -87,7 +98,7 @@ export function gerarSenhaSegura(
 
   // Completa o restante da senha
   for (let i = senha.length; i < comprimento; i++) {
-    const indiceAleatorio = Math.floor(Math.random() * todosChars.length);
+    const indiceAleatorio = array[i] % todosChars.length;
     senha += todosChars[indiceAleatorio];
   }
 
