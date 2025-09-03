@@ -9,6 +9,8 @@
   },
   "include": [
     "Sprint/**/*",
-    "testes/**/*"
+    "testes/**/*",
+    "**/*.ts"
   ]
+
 }
