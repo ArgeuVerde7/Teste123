@@ -12,16 +12,20 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "jest-junit": "^16.0.0",
-    "jest-environment-jsdom": "^29.7.0"
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.1.5",
+    "typescript": "^5.4.5",
+    "@types/jest": "^29.5.12"
   },
- "jest": {
+  "jest": {
+    "preset": "ts-jest",
     "collectCoverage": true,
     "coverageReporters": [
       "lcov",
       "text"
     ],
     "collectCoverageFrom": [
-      "**/*.js",
+      "**/*.{js,ts}",
       "!**/node_modules/**"
     ],
     "reporters": [
