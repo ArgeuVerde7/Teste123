@@ -1,4 +1,4 @@
-import { isPrime } from '../Sprint/primo.ts';
+import { isPrime } from '../Sprint/primo';
 
 describe('Testes para a função isPrime', () => {
 
@@ -34,4 +34,5 @@ describe('Testes para a função isPrime', () => {
     expect(isPrime(-1)).toBe(false);
     expect(isPrime(-10)).toBe(false);
   });
+
 });
