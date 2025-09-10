@@ -63,45 +63,66 @@ export function gerarSenhaSegura(
   const charsSimbolos = '!@#$%^&*()_+-=[]{}|;:",.<>/?`~';
 
   let todosChars = '';
-  if (maiusculas) todosChars += charsMaiusculas;
-  if (minusculas) todosChars += charsMinusculas;
-  if (numeros) todosChars += charsNumeros;
-  if (simbolos) todosChars += charsSimbolos;
+  const requisitos: string[] = [];
+  
+  if (maiusculas) {
+    todosChars += charsMaiusculas;
+    requisitos.push(charsMaiusculas);
+  }
+  if (minusculas) {
+    todosChars += charsMinusculas;
+    requisitos.push(charsMinusculas);
+  }
+  if (numeros) {
+    todosChars += charsNumeros;
+    requisitos.push(charsNumeros);
+  }
+  if (simbolos) {
+    todosChars += charsSimbolos;
+    requisitos.push(charsSimbolos);
+  }
 
   if (todosChars.length === 0) {
     throw new Error('Pelo menos um tipo de caractere deve ser selecionado.');
   }
 
-  let senha = '';
-  const requisitos: string[] = [];
-  if (maiusculas) requisitos.push(charsMaiusculas);
-  if (minusculas) requisitos.push(charsMinusculas);
-  if (numeros) requisitos.push(charsNumeros);
-  if (simbolos) requisitos.push(charsSimbolos);
-
-  // Usa um gerador de números aleatórios criptograficamente seguro
-  const array = new Uint32Array(comprimento);
-  if (window.crypto && window.crypto.getRandomValues) {
-    window.crypto.getRandomValues(array);
-  } else {
-    // Fallback para ambientes sem window.crypto (inseguro)
-    for (let i = 0; i < array.length; i++) {
-      array[i] = Math.floor(Math.random() * (2**32));
-    }
-  }
+  const senhaArray: string[] = [];
 
   // Garante pelo menos um caractere de cada tipo selecionado
   for (const requisito of requisitos) {
-    const indiceAleatorio = Math.floor(Math.random() * requisito.length);
-    senha += requisito[indiceAleatorio];
+    const charAleatorio = requisito[Math.floor(Math.random() * requisito.length)];
+    senhaArray.push(charAleatorio);
+  }
+  
+  // Usa um gerador de números aleatórios criptograficamente seguro
+  const array = new Uint32Array(comprimento - senhaArray.length);
+  if (window.crypto && window.crypto.getRandomValues) {
+    window.crypto.getRandomValues(array);
+  } else {
+    for (let i = 0; i < array.length; i++) {
+      array[i] = Math.floor(Math.random() * (2 ** 32));
+    }
   }
 
   // Completa o restante da senha
-  for (let i = senha.length; i < comprimento; i++) {
+  for (let i = 0; i < array.length; i++) {
     const indiceAleatorio = array[i] % todosChars.length;
-    senha += todosChars[indiceAleatorio];
+    senhaArray.push(todosChars[indiceAleatorio]);
   }
 
   // Embaralha a senha para garantir a aleatoriedade
-  return senha.split('').sort(() => 0.5 - Math.random()).join('');
+  return shuffleArray(senhaArray).join('');
+}
+
+/**
+ * Função auxiliar para embaralhar um array.
+ * @param array O array a ser embaralhado.
+ * @returns O array embaralhado.
+ */
+function shuffleArray<T>(array: T[]): T[] {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
