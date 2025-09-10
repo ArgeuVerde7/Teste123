@@ -95,14 +95,12 @@ export function gerarSenhaSegura(
   }
   
   // Usa um gerador de números aleatórios criptograficamente seguro
-  const array = new Uint32Array(comprimento - senhaArray.length);
-  if (window.crypto && window.crypto.getRandomValues) {
-    window.crypto.getRandomValues(array);
-  } else {
-    for (let i = 0; i < array.length; i++) {
-      array[i] = Math.floor(Math.random() * (2 ** 32));
-    }
+  if (!window.crypto || !window.crypto.getRandomValues) {
+    throw new Error('Ambiente não suporta um gerador de números aleatórios criptograficamente seguro.');
   }
+
+  const array = new Uint32Array(comprimento - senhaArray.length);
+  window.crypto.getRandomValues(array);
 
   // Completa o restante da senha
   for (let i = 0; i < array.length; i++) {
