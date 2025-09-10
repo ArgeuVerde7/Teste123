@@ -86,19 +86,22 @@ export function gerarSenhaSegura(
     throw new Error('Pelo menos um tipo de caractere deve ser selecionado.');
   }
 
-  const senhaArray: string[] = [];
-
-  // Garante pelo menos um caractere de cada tipo selecionado
-  for (const requisito of requisitos) {
-    const charAleatorio = requisito[Math.floor(Math.random() * requisito.length)];
-    senhaArray.push(charAleatorio);
-  }
-  
-  // Usa um gerador de números aleatórios criptograficamente seguro
+  // Verifica o suporte à API de criptografia
   if (!window.crypto || !window.crypto.getRandomValues) {
     throw new Error('Ambiente não suporta um gerador de números aleatórios criptograficamente seguro.');
   }
 
+  const senhaArray: string[] = [];
+
+  // Garante pelo menos um caractere de cada tipo selecionado usando um gerador seguro
+  for (const requisito of requisitos) {
+    const array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    const charAleatorio = requisito[array[0] % requisito.length];
+    senhaArray.push(charAleatorio);
+  }
+  
+  // Gera o restante da senha
   const array = new Uint32Array(comprimento - senhaArray.length);
   window.crypto.getRandomValues(array);
 
@@ -118,8 +121,11 @@ export function gerarSenhaSegura(
  * @returns O array embaralhado.
  */
 function shuffleArray<T>(array: T[]): T[] {
+  // Implementação de embaralhamento seguro (Fisher-Yates)
   for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const randomBytes = new Uint32Array(1);
+    window.crypto.getRandomValues(randomBytes);
+    const j = randomBytes[0] % (i + 1);
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
