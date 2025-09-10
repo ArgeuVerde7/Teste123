@@ -105,9 +105,9 @@ export function gerarSenhaSegura(
   const array = new Uint32Array(comprimento - senhaArray.length);
   window.crypto.getRandomValues(array);
 
-  // Completa o restante da senha
-  for (let i = 0; i < array.length; i++) {
-    const indiceAleatorio = array[i] % todosChars.length;
+  // Completa o restante da senha usando um for-of loop
+  for (const randomValue of array) {
+    const indiceAleatorio = randomValue % todosChars.length;
     senhaArray.push(todosChars[indiceAleatorio]);
   }
 
