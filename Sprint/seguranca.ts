@@ -87,7 +87,7 @@ export function gerarSenhaSegura(
   }
 
   // Verifica o suporte à API de criptografia
-  if (!window.crypto || !window.crypto.getRandomValues) {
+  if (!window.crypto?.getRandomValues) {
     throw new Error('Ambiente não suporta um gerador de números aleatórios criptograficamente seguro.');
   }
 
@@ -121,7 +121,6 @@ export function gerarSenhaSegura(
  * @returns O array embaralhado.
  */
 function shuffleArray<T>(array: T[]): T[] {
-  // Implementação de embaralhamento seguro (Fisher-Yates)
   for (let i = array.length - 1; i > 0; i--) {
     const randomBytes = new Uint32Array(1);
     window.crypto.getRandomValues(randomBytes);
