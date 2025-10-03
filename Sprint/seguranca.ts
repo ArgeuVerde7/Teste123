@@ -2,7 +2,7 @@
  * Valida um número de CPF (Cadastro de Pessoa Física) brasileiro.
  * @param cpf O CPF formatado ou não formatado (ex: '723.237.950-00').
  * @returns true se o CPF for válido, false caso contrário.
- */
+ 
 export function validarCpf(cpf: string): boolean {
     // 1. Limpar e verificar o formato.
     const cleanCpf = cpf.replace(/[^\d]/g, '');
@@ -49,6 +49,7 @@ export function validarCpf(cpf: string): boolean {
 
     return expectedDv2 === actualDv2;
 }
+*/
 /**
  * Gera uma senha segura e aleatória.
  * @param comprimento O comprimento da senha. Padrão é 12.
