@@ -4,63 +4,50 @@
  * @returns true se o CPF for válido, false caso contrário.
  */
 export function validarCpf(cpf: string): boolean {
-    // 1. Limpar o CPF: remover pontos, traços e outros caracteres não numéricos.
+    // 1. Limpar e verificar o formato.
     const cleanCpf = cpf.replace(/[^\d]/g, '');
 
-    // 2. Verificar o comprimento. Deve ter 11 dígitos.
     if (cleanCpf.length !== 11) {
-        return false;
+        return false; // Deve ter 11 dígitos.
     }
 
-    // 3. Checar sequências de dígitos iguais (que são CPFs inválidos,
-    // mas que passariam no cálculo do DV, como '11111111111').
+    // 2. Bloquear CPFs inválidos com todos os dígitos iguais (ex: '111.111.111-11').
     if (/^(\d)\1{10}$/.test(cleanCpf)) {
         return false;
     }
 
-    // 4. Iniciar o cálculo dos dígitos verificadores (DV).
+    // 3. Função auxiliar para calcular o dígito verificador.
+    const calculateDv = (base: string): number => {
+        let sum = 0;
+        const limit = base.length + 1; // O peso começa em 10 (para 9 dígitos) ou 11 (para 10 dígitos)
 
-    // Separa os 9 primeiros dígitos (base) e os 2 dígitos verificadores (DVs)
-    const base = cleanCpf.substring(0, 9);
-    const dv1 = parseInt(cleanCpf.charAt(9), 10);
-    const dv2 = parseInt(cleanCpf.charAt(10), 10);
-    
-    let sum = 0;
-    let remainder = 0;
+        for (let i = 0; i < base.length; i++) {
+            // O multiplicador é (limite - i). Ex: para 9 dígitos, os pesos são 10, 9, 8...
+            sum += parseInt(base.charAt(i), 10) * (limit - i);
+        }
 
-    // --- CÁLCULO DO PRIMEIRO DÍGITO VERIFICADOR (DV1) ---
-    for (let i = 0; i < 9; i++) {
-        // Multiplica o dígito pela posição decrescente (10 a 2)
-        sum += parseInt(base.charAt(i), 10) * (10 - i);
-    }
+        const remainder = sum % 11;
+        
+        // Retorna 0 se o resto for 0 ou 1, caso contrário retorna 11 - resto.
+        return remainder < 2 ? 0 : 11 - remainder;
+    };
 
-    remainder = sum % 11;
-    // O dígito verificador calculado (calculatedDv1)
-    const calculatedDv1 = remainder < 2 ? 0 : 11 - remainder;
+    // 4. Calcular e verificar o 1º dígito verificador (DV1).
+    const baseDv1 = cleanCpf.substring(0, 9);
+    const expectedDv1 = calculateDv(baseDv1);
+    const actualDv1 = parseInt(cleanCpf.charAt(9), 10);
 
-    // 5. Verificar se o primeiro DV calculado bate com o DV1 fornecido.
-    if (calculatedDv1 !== dv1) {
+    if (expectedDv1 !== actualDv1) {
         return false;
     }
 
-    // --- CÁLCULO DO SEGUNDO DÍGITO VERIFICADOR (DV2) ---
-    // Agora a soma inclui o primeiro DV calculado (9 dígitos base + 1 DV1)
-    sum = 0;
+    // 5. Calcular e verificar o 2º dígito verificador (DV2).
+    // A base agora inclui o primeiro dígito verificador (10 dígitos).
+    const baseDv2 = cleanCpf.substring(0, 10);
+    const expectedDv2 = calculateDv(baseDv2);
+    const actualDv2 = parseInt(cleanCpf.charAt(10), 10);
 
-    // A nova base é 'base' + 'calculatedDv1'
-    const baseWithDv1 = base + calculatedDv1;
-
-    for (let i = 0; i < 10; i++) {
-        // Multiplica o dígito pela posição decrescente (11 a 2)
-        sum += parseInt(baseWithDv1.charAt(i), 10) * (11 - i);
-    }
-
-    remainder = sum % 11;
-    // O segundo dígito verificador calculado (calculatedDv2)
-    const calculatedDv2 = remainder < 2 ? 0 : 11 - remainder;
-
-    // 6. Verificar se o segundo DV calculado bate com o DV2 fornecido.
-    return calculatedDv2 === dv2;
+    return expectedDv2 === actualDv2;
 }
 /**
  * Gera uma senha segura e aleatória.
