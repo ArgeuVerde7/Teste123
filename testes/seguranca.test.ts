@@ -4,8 +4,11 @@ describe('validarCpf', () => {
   // Testes para CPFs válidos
   it('should return true for a valid CPF with all digits', () => {
     // CPFs válidos
-    expect(validarCpf('723.237.950-00')).toBe(true);
+    // Este teste deve passar quando a implementação de validarCpf for corrigida.
+    expect(validarCpf('723.237.950-00')).toBe(true); 
     expect(validarCpf('987.654.321-09')).toBe(true);
+    // Adicionando mais um CPF válido para aumentar a cobertura
+    expect(validarCpf('158.745.963-00')).toBe(true);
   });
 
   // Testes para CPFs inválidos
