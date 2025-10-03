@@ -1,46 +1,67 @@
 /**
- * Valida um número de CPF.
- * @param cpf A string do CPF a ser validada.
- * @returns Retorna true se o CPF for válido, caso contrário, false.
+ * Valida um número de CPF (Cadastro de Pessoa Física) brasileiro.
+ * @param cpf O CPF formatado ou não formatado (ex: '723.237.950-00').
+ * @returns true se o CPF for válido, false caso contrário.
  */
 export function validarCpf(cpf: string): boolean {
-  // Remove caracteres não numéricos
-  const cpfLimpo = cpf.replace(/[^\D]/g, '');
+    // 1. Limpar o CPF: remover pontos, traços e outros caracteres não numéricos.
+    const cleanCpf = cpf.replace(/[^\d]/g, '');
 
-  // Verifica se o CPF tem 11 dígitos e se não é uma sequência de números repetidos
-  if (cpfLimpo.length !== 11 || /^(\d)\1{10}$/.test(cpfLimpo)) {
-    return false;
-  }
+    // 2. Verificar o comprimento. Deve ter 11 dígitos.
+    if (cleanCpf.length !== 11) {
+        return false;
+    }
 
-  // Lógica para validar o primeiro dígito verificador
-  let soma = 0;
-  for (let i = 0; i < 9; i++) {
-    soma += parseInt(cpfLimpo.charAt(i)) * (10 - i);
-  }
-  let resto = (soma * 10) % 11;
-  if (resto === 10) {
-    resto = 0;
-  }
-  if (resto !== parseInt(cpfLimpo.charAt(9))) {
-    return false;
-  }
+    // 3. Checar sequências de dígitos iguais (que são CPFs inválidos,
+    // mas que passariam no cálculo do DV, como '11111111111').
+    if (/^(\d)\1{10}$/.test(cleanCpf)) {
+        return false;
+    }
 
-  // Lógica para validar o segundo dígito verificador
-  soma = 0;
-  for (let i = 0; i < 10; i++) {
-    soma += parseInt(cpfLimpo.charAt(i)) * (11 - i);
-  }
-  resto = (soma * 10) % 11;
-  if (resto === 10) {
-    resto = 0;
-  }
-  if (resto !== parseInt(cpfLimpo.charAt(10))) {
-    return false;
-  }
+    // 4. Iniciar o cálculo dos dígitos verificadores (DV).
 
-  return true;
+    // Separa os 9 primeiros dígitos (base) e os 2 dígitos verificadores (DVs)
+    const base = cleanCpf.substring(0, 9);
+    const dv1 = parseInt(cleanCpf.charAt(9), 10);
+    const dv2 = parseInt(cleanCpf.charAt(10), 10);
+    
+    let sum = 0;
+    let remainder = 0;
+
+    // --- CÁLCULO DO PRIMEIRO DÍGITO VERIFICADOR (DV1) ---
+    for (let i = 0; i < 9; i++) {
+        // Multiplica o dígito pela posição decrescente (10 a 2)
+        sum += parseInt(base.charAt(i), 10) * (10 - i);
+    }
+
+    remainder = sum % 11;
+    // O dígito verificador calculado (calculatedDv1)
+    const calculatedDv1 = remainder < 2 ? 0 : 11 - remainder;
+
+    // 5. Verificar se o primeiro DV calculado bate com o DV1 fornecido.
+    if (calculatedDv1 !== dv1) {
+        return false;
+    }
+
+    // --- CÁLCULO DO SEGUNDO DÍGITO VERIFICADOR (DV2) ---
+    // Agora a soma inclui o primeiro DV calculado (9 dígitos base + 1 DV1)
+    sum = 0;
+
+    // A nova base é 'base' + 'calculatedDv1'
+    const baseWithDv1 = base + calculatedDv1;
+
+    for (let i = 0; i < 10; i++) {
+        // Multiplica o dígito pela posição decrescente (11 a 2)
+        sum += parseInt(baseWithDv1.charAt(i), 10) * (11 - i);
+    }
+
+    remainder = sum % 11;
+    // O segundo dígito verificador calculado (calculatedDv2)
+    const calculatedDv2 = remainder < 2 ? 0 : 11 - remainder;
+
+    // 6. Verificar se o segundo DV calculado bate com o DV2 fornecido.
+    return calculatedDv2 === dv2;
 }
-
 /**
  * Gera uma senha segura e aleatória.
  * @param comprimento O comprimento da senha. Padrão é 12.
