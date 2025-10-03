@@ -1,4 +1,4 @@
-import { validarCpf, gerarSenhaSegura } from '../Sprint/seguranca';
+import { /**validarCpf,*/gerarSenhaSegura } from '../Sprint/seguranca';
 /**
 describe('validarCpf', () => {
   // Testes para CPFs válidos
