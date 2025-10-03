@@ -1,6 +1,6 @@
 import { validarCpf, gerarSenhaSegura } from '../Sprint/seguranca';
 
-/*describe('validarCpf', () => {
+describe('validarCpf', () => {
   // Testes para CPFs válidos
   it('should return true for a valid CPF with all digits', () => {
     // CPFs válidos
@@ -20,7 +20,7 @@ import { validarCpf, gerarSenhaSegura } from '../Sprint/seguranca';
     expect(validarCpf('123.456.789-01')).toBe(false);
   });
 });
-*/
+
 describe('gerarSenhaSegura', () => {
   // Teste para comprimento padrão
   it('should generate a password with a default length of 12', () => {
